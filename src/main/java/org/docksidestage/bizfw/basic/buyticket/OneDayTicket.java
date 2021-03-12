@@ -22,7 +22,7 @@ import org.docksidestage.bizfw.basic.buyticket.TicketTypeHolder.TicketDaysType;
  * @author jflute
  * @author sato_akihide
  */
-public class Ticket {
+public class OneDayTicket implements Ticket1 {
 
     // ===================================================================================
     //                                                                           Attribute
@@ -34,7 +34,7 @@ public class Ticket {
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-    public Ticket(Price ticketPrice, TicketDaysType tikectType) {
+    public OneDayTicket(Price ticketPrice, TicketDaysType tikectType) {
         this.displayPrice = ticketPrice;
         this.type = tikectType;
     }
@@ -64,12 +64,4 @@ public class Ticket {
     public TicketDaysType getType() {
         return this.type;
     }
-
-    // getTypeがあるのであれば、この処理はなくても良い（非常によく使うようなメソッドであればあっても良い）
-    //    public boolean isOneDayTicket() {
-    //        // この書き方はNG
-    //        //return this.displayPrice == ONE_DAY_PRICE;
-    //        // チケットブースから取得するように・・・
-    //        return this.type.equals(TicketTypeHolder.TicketDaysType.ONE_DAY);
-    //    }
 }

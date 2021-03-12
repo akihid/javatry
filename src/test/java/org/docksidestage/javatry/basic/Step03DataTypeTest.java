@@ -1,5 +1,5 @@
 /*
- * Copyright 2019-2021 the original author or authors.
+ * Copyright 2019-2019 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -45,16 +45,16 @@ public class Step03DataTypeTest extends PlainTestCase {
         Boolean dstore = true;
         BigDecimal amba = new BigDecimal("9.4");
 
-        piari = piari.plusDays(1);
-        land = piari.getYear();
-        bonvo = bonvo.plusMonths(1);
-        land = bonvo.getMonthValue();
-        land--;
+        piari = piari.plusDays(1); // 9/5
+        land = piari.getYear(); //2001y
+        bonvo = bonvo.plusMonths(1); //2001/10
+        land = bonvo.getMonthValue(); //10
+        land--; //9
         if (dstore) {
-            BigDecimal addedDecimal = amba.add(new BigDecimal(land));
+            BigDecimal addedDecimal = amba.add(new BigDecimal(land)); //9.4 + 9 = 18.4
             sea = String.valueOf(addedDecimal);
         }
-        log(sea); // your answer? => 
+        log(sea); // your answer? => 18.4
     }
 
     // ===================================================================================
@@ -64,25 +64,31 @@ public class Step03DataTypeTest extends PlainTestCase {
     public void test_datatype_primitive() {
         byte sea = 127; // max
         short land = 32767; // max
-        int piari = 1;
+        int piari = 2147483647; // max
         long bonvo = 9223372036854775807L; // max
-        float dstore = 1.1f;
+        float dstore = 2147483647.1f; // 2.14748365E9
         double amba = 2.3d;
         char miraco = 'a';
-        boolean dohotel = miraco == 'a';
-        if (dohotel && dstore >= piari) {
+        boolean dohotel = miraco == 'a'; // true
+        if (dohotel && dstore >= piari) { //floatとintの比較
             bonvo = sea;
             land = (short) bonvo;
             bonvo = piari;
             sea = (byte) land;
             if (amba == 2.3D) {
-                sea = (byte) amba;
+                sea = (byte) amba; //byteにキャスト→2(8ビットの範囲で-128～127までの整数)
             }
         }
-        if ((int) dstore > piari) {
+        if (dstore > piari) {
             sea = 0;
         }
-        log(sea); // your answer? => 
+        log(sea); // your answer? => 0 →2
+        // why?
+        // dstore == piariがtrue。intとfloatって同じ値になるの？言語仕様。
+        // intとfloatの比較の場合、intに寄せられる。
+        // intとdoubleの比較の場合、doubuleに寄せられる。
+        // BigDecimal.valueOf(piari).toPlainString()すると同じ値になってるっぽい。。。わからぬ。
+
     }
 
     // ===================================================================================
@@ -92,7 +98,8 @@ public class Step03DataTypeTest extends PlainTestCase {
     public void test_datatype_object() {
         St3ImmutableStage stage = new St3ImmutableStage("hangar");
         String sea = stage.getStageName();
-        log(sea); // your answer? => 
+        log(sea); // your answer? => 　hangar
+        // コンストラクタでstageNameに設定した値をそのままgetしてるだけ？
     }
 
     private static class St3ImmutableStage {
@@ -106,5 +113,9 @@ public class Step03DataTypeTest extends PlainTestCase {
         public String getStageName() {
             return stageName;
         }
+
+        //        public void setStageName(String stageName) {
+        //            this.stageName = stageName;
+        //        }
     }
 }
