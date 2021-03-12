@@ -15,55 +15,36 @@
  */
 package org.docksidestage.bizfw.basic.buyticket;
 
-import org.docksidestage.bizfw.basic.buyticket.TicketTypeHolder.Price;
-import org.docksidestage.bizfw.basic.buyticket.TicketTypeHolder.TicketDaysType;
-
 /**
- * @author jflute
  * @author sato_akihide
  */
-public class MultiDayTicket implements Ticket {
+public class TicketBuyResult_old {
 
     // ===================================================================================
     //                                                                           Attribute
-    //                                                                           =========
-    private final Price displayPrice;
-    private final TicketDaysType type;
-    private int remainingDays = 0;
+    //                                                                         ===========
+
+    // 不変的なものの場合、finalをつけることで、可読性があがる
+    private final Ticket_old ticket;
+    private final int change;
 
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-    public MultiDayTicket(Price ticketPrice, TicketDaysType tikectType) {
-        this.displayPrice = ticketPrice;
-        this.type = tikectType;
-        this.remainingDays = tikectType.getDays();
-    }
-
-    // ===================================================================================
-    //                                                                             In Park
-    //                                                                             =======
-    public void doInPark() {
-        // 残日数が０の場合、入場不可
-        if (remainingDays <= 0) {
-            throw new IllegalStateException("日数０");
-        }
-        this.remainingDays--;
+    public TicketBuyResult_old(Ticket_old ticket, int change) {
+        this.ticket = ticket;
+        this.change = change;
     }
 
     // ===================================================================================
     //                                                                            Accessor
     //                                                                            ========
 
-    public int getDisplayPrice() {
-        return displayPrice.getValue();
+    public Ticket_old getTicket() {
+        return ticket;
     }
 
-    public TicketDaysType getType() {
-        return this.type;
-    }
-
-    public int getRemainingDays() {
-        return this.remainingDays;
+    public int getChange() {
+        return change;
     }
 }

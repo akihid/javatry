@@ -22,33 +22,31 @@ import org.docksidestage.bizfw.basic.buyticket.TicketTypeHolder.TicketDaysType;
  * @author jflute
  * @author sato_akihide
  */
-public class MultiDayTicket implements Ticket {
+public class Ticket_old {
 
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
     private final Price displayPrice;
     private final TicketDaysType type;
-    private int remainingDays = 0;
+    private boolean alreadyIn;
 
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-    public MultiDayTicket(Price ticketPrice, TicketDaysType tikectType) {
+    public Ticket_old(Price ticketPrice, TicketDaysType tikectType) {
         this.displayPrice = ticketPrice;
         this.type = tikectType;
-        this.remainingDays = tikectType.getDays();
     }
 
     // ===================================================================================
     //                                                                             In Park
     //                                                                             =======
     public void doInPark() {
-        // 残日数が０の場合、入場不可
-        if (remainingDays <= 0) {
-            throw new IllegalStateException("日数０");
+        if (alreadyIn) {
+            throw new IllegalStateException("Already in park by this ticket: displayedPrice=" + displayPrice);
         }
-        this.remainingDays--;
+        alreadyIn = true;
     }
 
     // ===================================================================================
@@ -59,11 +57,19 @@ public class MultiDayTicket implements Ticket {
         return displayPrice.getValue();
     }
 
+    public boolean isAlreadyIn() {
+        return alreadyIn;
+    }
+
     public TicketDaysType getType() {
         return this.type;
     }
 
-    public int getRemainingDays() {
-        return this.remainingDays;
-    }
+    // getTypeがあるのであれば、この処理はなくても良い（非常によく使うようなメソッドであればあっても良い）
+    //    public boolean isOneDayTicket() {
+    //        // この書き方はNG
+    //        //return this.displayPrice == ONE_DAY_PRICE;
+    //        // チケットブースから取得するように・・・
+    //        return this.type.equals(TicketTypeHolder.TicketDaysType.ONE_DAY);
+    //    }
 }

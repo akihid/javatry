@@ -19,7 +19,7 @@ package org.docksidestage.bizfw.basic.buyticket;
  * @author jflute
  * @author sato_akihide
  */
-public class TicketBooth1 {
+public class TicketBooth_old {
 
     // ===================================================================================
     //                                                                          Definition
@@ -35,28 +35,68 @@ public class TicketBooth1 {
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-    public TicketBooth1() {
+    public TicketBooth_old() {
     }
 
     // ===================================================================================
     //                                                                          Buy Ticket
     //                                                                          ==========
 
-    public TicketBuyResult buyOneDayPassport(int handedMoney) {
+    public TicketBuyResult_old buyOneDayPassport(int handedMoney) {
 
         return doBuyPassport(handedMoney, TicketTypeHolder.ONE_DAY_TYPE);
-
+        //　共通の処理なので、外に出す。
+        //        //        if (quantity <= 0) {
+        //        //            throw new TicketSoldOutException("Sold out");
+        //        //        }
+        //        assertTicketExists();
+        //
+        //        assertHandMoneyEnough(handedMoney, ONE_DAY_PRICE);
+        //        //        if (handedMoney < ONE_DAY_PRICE) {
+        //        //            throw new TicketShortMoneyException("Short money: " + handedMoney);
+        //        //        }
+        //        --quantity;
+        //        calcSalesProceeds(ONE_DAY_PRICE);
+        //        return new Ticket(ONE_DAY_PRICE);
     }
 
-    public TicketBuyResult buyTwoDayPassport(int handedMoney) {
+    public TicketBuyResult_old buyTwoDayPassport(int handedMoney) {
         return doBuyPassport(handedMoney, TicketTypeHolder.TWO_DAY_TYPE);
+        //        if (quantity <= 0) {
+        //            throw new TicketSoldOutException("Sold out");
+        //        }
+        //        assertTicketExists();
+        //        assertHandMoneyEnough(handedMoney, TWO_DAY_PRICE);
+        //        //        if (handedMoney < TWO_DAY_PRICE) {
+        //        //            throw new TicketShortMoneyException("Short money: " + handedMoney);
+        //        //        }
+        //
+        //        // ループとかで書くべき？
+        //        // そもそもbuyOneDayPassportを使い回すとかしたほうがいいかも
+        //        --quantity;
+        //        --quantity;
+        //        calcSalesProceeds(TWO_DAY_PRICE);
+        //        //        return handedMoney - TWO_DAY_PRICE;
+        //        return new TicketBuyResult(new Ticket(TWO_DAY_PRICE), handedMoney - TWO_DAY_PRICE);
     }
 
-    private TicketBuyResult doBuyPassport(int handedMoney, TicketTypeHolder ticketType) {
+    private TicketBuyResult_old doBuyPassport(int handedMoney, TicketTypeHolder ticketType) {
 
         // 共通の処理(売り切れ判定、所持金判定）
         assertTicketExists();
         assertHandMoneyEnough(handedMoney, ticketType.getPriceValue());
+
+        // 在庫減らす（一旦これで…）
+        // チケットの種類が増えたときに内部に変更が加わらないようにする
+        //        switch (ticketPrice) {
+        //        case ONE_DAY_PRICE:
+        //            
+        //            break;
+        //        case TWO_DAY_PRICE:
+        //            --quantity;
+        //            --quantity;
+        //            break;
+        //        }
 
         int ticketDays = ticketType.getType().getDays();
         for (int i = 0; i < ticketDays; i++) {
@@ -64,7 +104,8 @@ public class TicketBooth1 {
         }
         calcSalesProceeds(ticketType.getPriceValue());
 
-        return new TicketBuyResult(new Ticket(ticketType.getPrice(), ticketType.getType()), handedMoney - ticketType.getPriceValue());
+        return new TicketBuyResult_old(new Ticket_old(ticketType.getPrice(), ticketType.getType()),
+                handedMoney - ticketType.getPriceValue());
     }
 
     private void assertTicketExists() {

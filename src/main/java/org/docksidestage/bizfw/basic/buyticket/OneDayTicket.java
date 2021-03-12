@@ -22,7 +22,7 @@ import org.docksidestage.bizfw.basic.buyticket.TicketTypeHolder.TicketDaysType;
  * @author jflute
  * @author sato_akihide
  */
-public class OneDayTicket implements Ticket1 {
+public class OneDayTicket implements Ticket {
 
     // ===================================================================================
     //                                                                           Attribute
