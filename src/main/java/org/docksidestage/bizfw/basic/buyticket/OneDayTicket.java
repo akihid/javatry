@@ -15,8 +15,8 @@
  */
 package org.docksidestage.bizfw.basic.buyticket;
 
-import org.docksidestage.bizfw.basic.buyticket.TicketTypeHolder.Price;
-import org.docksidestage.bizfw.basic.buyticket.TicketTypeHolder.TicketDaysType;
+import org.docksidestage.bizfw.basic.buyticket.types.DaysType;
+import org.docksidestage.bizfw.basic.buyticket.types.Price;
 
 /**
  * @author jflute
@@ -28,13 +28,13 @@ public class OneDayTicket implements Ticket {
     //                                                                           Attribute
     //                                                                           =========
     private final Price displayPrice;
-    private final TicketDaysType daysType;
+    private final DaysType daysType;
     private boolean alreadyIn;
 
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-    public OneDayTicket(Price ticketPrice, TicketDaysType tikectType) {
+    public OneDayTicket(Price ticketPrice, DaysType tikectType) {
         this.displayPrice = ticketPrice;
         this.daysType = tikectType;
     }
@@ -61,7 +61,7 @@ public class OneDayTicket implements Ticket {
         return alreadyIn;
     }
 
-    public TicketDaysType getDaysType() {
+    public DaysType getDaysType() {
         return this.daysType;
     }
 }

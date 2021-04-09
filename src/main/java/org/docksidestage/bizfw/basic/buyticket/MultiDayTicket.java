@@ -15,8 +15,8 @@
  */
 package org.docksidestage.bizfw.basic.buyticket;
 
-import org.docksidestage.bizfw.basic.buyticket.TicketTypeHolder.Price;
-import org.docksidestage.bizfw.basic.buyticket.TicketTypeHolder.TicketDaysType;
+import org.docksidestage.bizfw.basic.buyticket.types.DaysType;
+import org.docksidestage.bizfw.basic.buyticket.types.Price;
 
 /**
  * @author jflute
@@ -27,13 +27,13 @@ public class MultiDayTicket implements Ticket {
     // ===================================================================================
     //                                                                           Attribute
     private final Price displayPrice;
-    private final TicketDaysType daysType;
+    private final DaysType daysType;
     private int remainingDays = 0;
 
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-    public MultiDayTicket(Price ticketPrice, TicketDaysType tikectType) {
+    public MultiDayTicket(Price ticketPrice, DaysType tikectType) {
         this.displayPrice = ticketPrice;
         this.daysType = tikectType;
         this.remainingDays = tikectType.getDays();
@@ -53,12 +53,11 @@ public class MultiDayTicket implements Ticket {
     // ===================================================================================
     //                                                                            Accessor
     //                                                                            ========
-
     public int getDisplayPrice() {
         return displayPrice.getValue();
     }
 
-    public TicketDaysType getDaysType() {
+    public DaysType getDaysType() {
         return this.daysType;
     }
 

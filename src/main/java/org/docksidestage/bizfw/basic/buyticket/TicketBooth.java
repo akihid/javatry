@@ -15,8 +15,9 @@
  */
 package org.docksidestage.bizfw.basic.buyticket;
 
-import org.docksidestage.bizfw.basic.buyticket.TicketTypeHolder.Price;
-import org.docksidestage.bizfw.basic.buyticket.TicketTypeHolder.TicketDaysType;
+import org.docksidestage.bizfw.basic.buyticket.types.DaysType;
+import org.docksidestage.bizfw.basic.buyticket.types.Price;
+import org.docksidestage.bizfw.basic.buyticket.types.TicketType;
 
 /**
  * @author jflute
@@ -46,21 +47,21 @@ public class TicketBooth {
     //                                                                          ==========
 
     public TicketBuyResult buyOneDayPassport(int handedMoney) {
-        return doBuyPassport(handedMoney, TicketTypeHolder.ONE_DAY_TYPE);
+        return doBuyPassport(handedMoney, TicketType.ONE_DAY);
     }
 
     public TicketBuyResult buyTwoDayPassport(int handedMoney) {
-        return doBuyPassport(handedMoney, TicketTypeHolder.TWO_DAY_TYPE);
+        return doBuyPassport(handedMoney, TicketType.TWO_DAY);
     }
 
     public TicketBuyResult buyFourDayPassport(int handedMoney) {
-        return doBuyPassport(handedMoney, TicketTypeHolder.FOUR_DAY_TYPE);
+        return doBuyPassport(handedMoney, TicketType.FOUR_DAY);
     }
 
-    private TicketBuyResult doBuyPassport(int handedMoney, TicketTypeHolder ticketType) {
+    private TicketBuyResult doBuyPassport(int handedMoney, TicketType ticketType) {
 
         Price price = ticketType.getPrice();
-        TicketDaysType daysType = ticketType.getDaysType();
+        DaysType daysType = ticketType.getDaysType();
 
         // 共通の処理(売り切れ判定、所持金判定）
         assertTicketExists();
@@ -72,7 +73,7 @@ public class TicketBooth {
         calcSalesProceeds(price);
 
         Ticket ticket;
-        if (ticketType == TicketTypeHolder.ONE_DAY_TYPE) {
+        if (ticketType == TicketType.ONE_DAY) {
             ticket = new OneDayTicket(price, daysType);
         } else {
             ticket = new MultiDayTicket(price, daysType);
@@ -81,12 +82,18 @@ public class TicketBooth {
         return new TicketBuyResult(ticket, handedMoney - price.getValue());
     }
 
+    /**
+     * quantityを参照し、0以下の場合、チケットが存在しないので例外出力
+     */
     private void assertTicketExists() {
         if (quantity <= 0) {
             throw new TicketSoldOutException("Sold out");
         }
     }
 
+    /**
+     * 所持金とチケットの金額を比較。所持金が不足している場合、例外出力
+     */
     private void assertHandMoneyEnough(int handedMoney, Price price) {
         int ticketPrice = price.getValue();
         if (handedMoney < ticketPrice) {
@@ -94,6 +101,9 @@ public class TicketBooth {
         }
     }
 
+    /**
+     * チケットの金額を売上に追加する
+     */
     private void calcSalesProceeds(Price price) {
         int ticketPrice = price.getValue();
         if (salesProceeds != null) {
@@ -104,7 +114,6 @@ public class TicketBooth {
     }
 
     public static class TicketSoldOutException extends RuntimeException {
-
         private static final long serialVersionUID = 1L;
 
         public TicketSoldOutException(String msg) {
@@ -113,7 +122,6 @@ public class TicketBooth {
     }
 
     public static class TicketShortMoneyException extends RuntimeException {
-
         private static final long serialVersionUID = 1L;
 
         public TicketShortMoneyException(String msg) {

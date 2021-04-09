@@ -18,10 +18,9 @@ package org.docksidestage.javatry.basic;
 import org.docksidestage.bizfw.basic.buyticket.MultiDayTicket;
 import org.docksidestage.bizfw.basic.buyticket.OneDayTicket;
 import org.docksidestage.bizfw.basic.buyticket.TicketBooth;
-import org.docksidestage.bizfw.basic.buyticket.TicketBooth_old;
-import org.docksidestage.bizfw.basic.buyticket.TicketBooth_old.TicketShortMoneyException;
+import org.docksidestage.bizfw.basic.buyticket.TicketBooth.TicketShortMoneyException;
 import org.docksidestage.bizfw.basic.buyticket.TicketBuyResult;
-import org.docksidestage.bizfw.basic.buyticket.TicketTypeHolder;
+import org.docksidestage.bizfw.basic.buyticket.types.TicketType;
 import org.docksidestage.unit.PlainTestCase;
 
 /**
@@ -74,7 +73,7 @@ public class Step05ClassTest extends PlainTestCase {
       oneかそれ以外はまあ許容範囲
       宣言する際にスコープは短いように直前でやるべき
       
-      チケットタイプホルダー自身をenumに
+      チケットタイプホルダー自身をenumにして、それぞれも分けたほうがよい
     
     */
     // ===================================================================================
@@ -85,7 +84,7 @@ public class Step05ClassTest extends PlainTestCase {
      * (メソッド終了時の変数 sea の中身は？)
      */
     public void test_class_howToUse_basic() {
-        TicketBooth_old booth = new TicketBooth_old();
+        TicketBooth booth = new TicketBooth();
         booth.buyOneDayPassport(7400);
         int sea = booth.getQuantity();
         log(sea); // your answer? => 9
@@ -93,7 +92,7 @@ public class Step05ClassTest extends PlainTestCase {
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
     public void test_class_howToUse_overpay() {
-        TicketBooth_old booth = new TicketBooth_old();
+        TicketBooth booth = new TicketBooth();
         booth.buyOneDayPassport(10000);
         Integer sea = booth.getSalesProceeds();
         log(sea); // your answer? => 7400
@@ -101,7 +100,7 @@ public class Step05ClassTest extends PlainTestCase {
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
     public void test_class_howToUse_nosales() {
-        TicketBooth_old booth = new TicketBooth_old();
+        TicketBooth booth = new TicketBooth();
         Integer sea = booth.getSalesProceeds();
         log(sea); // your answer? => 0→null Integerの初期値はnull
     }
@@ -113,7 +112,7 @@ public class Step05ClassTest extends PlainTestCase {
     }
 
     private Integer doTest_class_ticket_wrongQuantity() {
-        TicketBooth_old booth = new TicketBooth_old();
+        TicketBooth booth = new TicketBooth();
         int handedMoney = 7399;
         try {
             booth.buyOneDayPassport(handedMoney);
@@ -144,7 +143,7 @@ public class Step05ClassTest extends PlainTestCase {
      * (受け取ったお金の分だけ売上が増えていく問題をクラスを修正して解決しましょう (以前のエクササイズのanswerの修正を忘れずに))
      */
     public void test_class_letsFix_salesProceedsIncrease() {
-        TicketBooth_old booth = new TicketBooth_old();
+        TicketBooth booth = new TicketBooth();
         booth.buyOneDayPassport(10000);
         Integer sea = booth.getSalesProceeds();
         log(sea); // should be same as one-day price, visual check here　7400
@@ -171,7 +170,7 @@ public class Step05ClassTest extends PlainTestCase {
      * (OneDayとTwoDayで冗長なロジックがあったら、クラス内のprivateメソッドなどで再利用しましょう (修正前と修正後の実行結果を確認))
      */
     public void test_class_letsFix_refactor_recycle() {
-        TicketBooth_old booth = new TicketBooth_old();
+        TicketBooth booth = new TicketBooth();
         booth.buyOneDayPassport(10000);
         log(booth.getQuantity(), booth.getSalesProceeds()); // should be same as before-fix
     }
@@ -199,7 +198,7 @@ public class Step05ClassTest extends PlainTestCase {
      */
     public void test_class_moreFix_return_whole() {
         // comment out after modifying the method
-        //        TicketBooth_old booth = new TicketBooth_old();
+        //        TicketBooth booth = new TicketBooth();
         //        int handedMoney = 20000;
         //        TicketBuyResult twoDayPassportResult = booth.buyTwoDayPassport(handedMoney);
         //        Ticket_old twoDayPassport = twoDayPassportResult.getTicket();
@@ -213,14 +212,14 @@ public class Step05ClassTest extends PlainTestCase {
      */
     public void test_class_moreFix_type() {
         // your confirmation code here
-        //        TicketBooth_old booth = new TicketBooth_old();
+        //        TicketBooth booth = new TicketBooth();
         //        TicketBuyResult oneDayPasssportResult = booth.buyOneDayPassport(10000);
         //        Ticket_old oneDayPassport = oneDayPassportResult.getTicket();
         //        log(oneDayPassport.getType().equals(TicketTypeHolder.TicketDaysType.ONE_DAY));
         //        log(booth.getQuantity());
         //        log(booth.getSalesProceeds());
         //
-        //        TicketBooth_old another_booth = new TicketBooth_old();
+        //        TicketBooth another_booth = new TicketBooth();
         //        TicketBuyResult twoDayPassportResult = another_booth.buyTwoDayPassport(20000);
         //        Ticket_old twoDayPassport = twoDayPassportResult.getTicket();
         //
@@ -254,7 +253,7 @@ public class Step05ClassTest extends PlainTestCase {
         TicketBuyResult oneDayPassportResult = booth.buyOneDayPassport(10000);
         OneDayTicket oneDayPassport = (OneDayTicket) oneDayPassportResult.getTicket();
 
-        log(oneDayPassport.getDaysType().equals(TicketTypeHolder.TicketDaysType.ONE_DAY));
+        log(oneDayPassport.getDaysType().equals(TicketType.ONE_DAY.getDaysType()));
         log(booth.getQuantity());
         log(booth.getSalesProceeds());
 
@@ -266,7 +265,7 @@ public class Step05ClassTest extends PlainTestCase {
         log("2回目");
         twoDayPassport.doInPark();
 
-        log(twoDayPassport.getDaysType().equals(TicketTypeHolder.TicketDaysType.ONE_DAY));
+        log(twoDayPassport.getDaysType().equals(TicketType.ONE_DAY.getDaysType()));
         log(another_booth.getQuantity());
         log(another_booth.getSalesProceeds());
     }
@@ -277,28 +276,27 @@ public class Step05ClassTest extends PlainTestCase {
      */
     public void test_class_moreFix_wonder() {
         // your confirmation code here
-        // your confirmation code here
-        //        TicketBooth booth = new TicketBooth();
-        //        TicketBuyResult fourDayPassportResult = booth.buyFourDayPassport(30000);
-        //        FourDayTicket fourayPassport = (FourDayTicket) fourDayPassportResult.getTicket();
-        //
-        //        log(oneDayPassport.getType().equals(TicketTypeHolder.TicketDaysType.ONE_DAY));
-        //        log(booth.getQuantity());
-        //        log(booth.getSalesProceeds());
-        //
-        //        TicketBooth another_booth = new TicketBooth();
-        //        TicketBuyResult twoDayPassportResult = another_booth.buyTwoDayPassport(20000);
-        //        MultiDayTicket twoDayPassport = (MultiDayTicket) twoDayPassportResult.getTicket();
-        //        log("1回目");
-        //        twoDayPassport.doInPark();
-        //        log("2回目");
-        //        twoDayPassport.doInPark();
-        //        log("3回目");
-        //        twoDayPassport.doInPark();
-        //
-        //        log(twoDayPassport.getType().equals(TicketTypeHolder.TicketDaysType.ONE_DAY));
-        //        log(another_booth.getQuantity());
-        //        log(another_booth.getSalesProceeds());
+        TicketBooth booth = new TicketBooth();
+        TicketBuyResult fourDayPassportResult = booth.buyFourDayPassport(30000);
+        MultiDayTicket fourDayPassport = (MultiDayTicket) fourDayPassportResult.getTicket();
+
+        log(fourDayPassport.getDaysType().equals(TicketType.FOUR_DAY.getDaysType()));
+        log(booth.getQuantity());
+        log(booth.getSalesProceeds());
+
+        log("1回目");
+        fourDayPassport.doInPark();
+        log("2回目");
+        fourDayPassport.doInPark();
+        log("3回目");
+        fourDayPassport.doInPark();
+        log("4回目");
+        fourDayPassport.doInPark();
+
+        log(fourDayPassport.getDaysType().equals(TicketType.FOUR_DAY.getDaysType()));
+        log(booth.getSalesProceeds());
+
+        fourDayPassport.doInPark();
     }
 
     /**

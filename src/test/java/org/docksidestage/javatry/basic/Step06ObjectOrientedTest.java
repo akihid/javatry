@@ -15,8 +15,8 @@
  */
 package org.docksidestage.javatry.basic;
 
-import org.docksidestage.bizfw.basic.buyticket.Ticket_old;
-import org.docksidestage.bizfw.basic.buyticket.TicketBooth_old;
+import org.docksidestage.bizfw.basic.buyticket.Ticket;
+import org.docksidestage.bizfw.basic.buyticket.TicketBooth;
 import org.docksidestage.bizfw.basic.objanimal.Animal;
 import org.docksidestage.bizfw.basic.objanimal.BarkedSound;
 import org.docksidestage.bizfw.basic.objanimal.Cat;
@@ -118,7 +118,7 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         //
         // [ticket booth info]
         //
-        TicketBooth_old booth = new TicketBooth_old();
+        TicketBooth booth = new TicketBooth();
 
         // *booth has these properties:
         //int oneDayPrice = 7400;
@@ -168,20 +168,20 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         //        saveBuyingHistory(booth, ticket);
     }
 
-    private void saveBuyingHistory(TicketBooth_old booth, Ticket_old ticket) {
-        if (ticket.isAlreadyIn()) {
-            // only logging here (normally e.g. DB insert)
-            doShowTicketBooth(booth);
-            doShowYourTicket(ticket);
-        }
+    private void saveBuyingHistory(TicketBooth booth, Ticket ticket) {
+        //        if (ticket.isAlreadyIn()) {
+        //            // only logging here (normally e.g. DB insert)
+        //            doShowTicketBooth(booth);
+        //            doShowYourTicket(ticket);
+        //        }
     }
 
-    private void doShowTicketBooth(TicketBooth_old booth) {
+    private void doShowTicketBooth(TicketBooth booth) {
         log("Ticket Booth: quantity={}, salesProceeds={}", booth.getQuantity(), booth.getSalesProceeds());
     }
 
-    private void doShowYourTicket(Ticket_old ticket) {
-        log("Your Ticket: displayPrice={}, alreadyIn={}", ticket.getDisplayPrice(), ticket.isAlreadyIn());
+    private void doShowYourTicket(Ticket ticket) {
+        //        log("Your Ticket: displayPrice={}, alreadyIn={}", ticket.getDisplayPrice(), ticket.isAlreadyIn());
     }
 
     // ===================================================================================

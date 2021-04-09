@@ -21,10 +21,12 @@ package org.docksidestage.bizfw.basic.buyticket.types;
  */
 public enum TicketType {
 
-    ONE_DAY(Price.ONE_DAY, DaysType.ONE_DAY), TWO_DAY(Price.TWO_DAY, DaysType.TWO_DAY), FOUR_DAY(Price.TWO_DAY, DaysType.FOUR_DAY);
+    ONE_DAY(Price.ONE_DAY, DaysType.ONE_DAY), //
+    TWO_DAY(Price.TWO_DAY, DaysType.TWO_DAY), //
+    FOUR_DAY(Price.FOUR_DAY, DaysType.FOUR_DAY);
 
-    private Price price;
-    private DaysType daysType;
+    private final Price price;
+    private final DaysType daysType;
 
     private TicketType(Price price, DaysType daysType) {
         this.price = price;
