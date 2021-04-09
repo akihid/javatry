@@ -64,6 +64,17 @@ public class Step05ClassTest extends PlainTestCase {
       TickeTDaysTypeとかのほうが明確。
       
       不要なコメント行は削除する必要あり。
+      
+      2021/04/09
+      チケットデイズのタイプとチケットプライスのタイプに分けた模様
+      命名がややこしい
+      チケットデイズタイプのタイプはデイズタイプに治そう
+      ゲットタイプもゲットデイズタイプに
+      
+      oneかそれ以外はまあ許容範囲
+      宣言する際にスコープは短いように直前でやるべき
+      
+      チケットタイプホルダー自身をenumに
     
     */
     // ===================================================================================
@@ -243,7 +254,7 @@ public class Step05ClassTest extends PlainTestCase {
         TicketBuyResult oneDayPassportResult = booth.buyOneDayPassport(10000);
         OneDayTicket oneDayPassport = (OneDayTicket) oneDayPassportResult.getTicket();
 
-        log(oneDayPassport.getType().equals(TicketTypeHolder.TicketDaysType.ONE_DAY));
+        log(oneDayPassport.getDaysType().equals(TicketTypeHolder.TicketDaysType.ONE_DAY));
         log(booth.getQuantity());
         log(booth.getSalesProceeds());
 
@@ -255,7 +266,7 @@ public class Step05ClassTest extends PlainTestCase {
         log("2回目");
         twoDayPassport.doInPark();
 
-        log(twoDayPassport.getType().equals(TicketTypeHolder.TicketDaysType.ONE_DAY));
+        log(twoDayPassport.getDaysType().equals(TicketTypeHolder.TicketDaysType.ONE_DAY));
         log(another_booth.getQuantity());
         log(another_booth.getSalesProceeds());
     }
@@ -266,6 +277,28 @@ public class Step05ClassTest extends PlainTestCase {
      */
     public void test_class_moreFix_wonder() {
         // your confirmation code here
+        // your confirmation code here
+        //        TicketBooth booth = new TicketBooth();
+        //        TicketBuyResult fourDayPassportResult = booth.buyFourDayPassport(30000);
+        //        FourDayTicket fourayPassport = (FourDayTicket) fourDayPassportResult.getTicket();
+        //
+        //        log(oneDayPassport.getType().equals(TicketTypeHolder.TicketDaysType.ONE_DAY));
+        //        log(booth.getQuantity());
+        //        log(booth.getSalesProceeds());
+        //
+        //        TicketBooth another_booth = new TicketBooth();
+        //        TicketBuyResult twoDayPassportResult = another_booth.buyTwoDayPassport(20000);
+        //        MultiDayTicket twoDayPassport = (MultiDayTicket) twoDayPassportResult.getTicket();
+        //        log("1回目");
+        //        twoDayPassport.doInPark();
+        //        log("2回目");
+        //        twoDayPassport.doInPark();
+        //        log("3回目");
+        //        twoDayPassport.doInPark();
+        //
+        //        log(twoDayPassport.getType().equals(TicketTypeHolder.TicketDaysType.ONE_DAY));
+        //        log(another_booth.getQuantity());
+        //        log(another_booth.getSalesProceeds());
     }
 
     /**

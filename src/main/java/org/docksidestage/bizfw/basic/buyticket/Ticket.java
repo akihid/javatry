@@ -1,5 +1,9 @@
 package org.docksidestage.bizfw.basic.buyticket;
 
+/**
+ * @author jflute
+ * @author sato_akihide
+ */
 public interface Ticket {
     // ===================================================================================
     //                                                                           Attribute

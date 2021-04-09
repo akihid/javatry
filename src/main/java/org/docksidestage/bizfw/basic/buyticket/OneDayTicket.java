@@ -28,7 +28,7 @@ public class OneDayTicket implements Ticket {
     //                                                                           Attribute
     //                                                                           =========
     private final Price displayPrice;
-    private final TicketDaysType type;
+    private final TicketDaysType daysType;
     private boolean alreadyIn;
 
     // ===================================================================================
@@ -36,7 +36,7 @@ public class OneDayTicket implements Ticket {
     //                                                                         ===========
     public OneDayTicket(Price ticketPrice, TicketDaysType tikectType) {
         this.displayPrice = ticketPrice;
-        this.type = tikectType;
+        this.daysType = tikectType;
     }
 
     // ===================================================================================
@@ -61,7 +61,7 @@ public class OneDayTicket implements Ticket {
         return alreadyIn;
     }
 
-    public TicketDaysType getType() {
-        return this.type;
+    public TicketDaysType getDaysType() {
+        return this.daysType;
     }
 }

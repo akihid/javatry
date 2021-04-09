@@ -15,6 +15,9 @@
  */
 package org.docksidestage.bizfw.basic.buyticket;
 
+import org.docksidestage.bizfw.basic.buyticket.TicketTypeHolder.Price;
+import org.docksidestage.bizfw.basic.buyticket.TicketTypeHolder.TicketDaysType;
+
 /**
  * @author jflute
  * @author sato_akihide
@@ -43,34 +46,39 @@ public class TicketBooth {
     //                                                                          ==========
 
     public TicketBuyResult buyOneDayPassport(int handedMoney) {
-
         return doBuyPassport(handedMoney, TicketTypeHolder.ONE_DAY_TYPE);
-
     }
 
     public TicketBuyResult buyTwoDayPassport(int handedMoney) {
         return doBuyPassport(handedMoney, TicketTypeHolder.TWO_DAY_TYPE);
     }
 
+    public TicketBuyResult buyFourDayPassport(int handedMoney) {
+        return doBuyPassport(handedMoney, TicketTypeHolder.FOUR_DAY_TYPE);
+    }
+
     private TicketBuyResult doBuyPassport(int handedMoney, TicketTypeHolder ticketType) {
-        Ticket ticket;
+
+        Price price = ticketType.getPrice();
+        TicketDaysType daysType = ticketType.getDaysType();
+
         // 共通の処理(売り切れ判定、所持金判定）
         assertTicketExists();
-        assertHandMoneyEnough(handedMoney, ticketType.getPriceValue());
+        assertHandMoneyEnough(handedMoney, price);
 
-        int ticketDays = ticketType.getType().getDays();
-        for (int i = 0; i < ticketDays; i++) {
+        for (int i = 0; i < daysType.getDays(); i++) {
             --quantity;
         }
-        calcSalesProceeds(ticketType.getPriceValue());
+        calcSalesProceeds(price);
 
+        Ticket ticket;
         if (ticketType == TicketTypeHolder.ONE_DAY_TYPE) {
-            ticket = new OneDayTicket(ticketType.getPrice(), ticketType.getType());
+            ticket = new OneDayTicket(price, daysType);
         } else {
-            ticket = new MultiDayTicket(ticketType.getPrice(), ticketType.getType());
+            ticket = new MultiDayTicket(price, daysType);
         }
 
-        return new TicketBuyResult(ticket, handedMoney - ticketType.getPriceValue());
+        return new TicketBuyResult(ticket, handedMoney - price.getValue());
     }
 
     private void assertTicketExists() {
@@ -79,13 +87,15 @@ public class TicketBooth {
         }
     }
 
-    private void assertHandMoneyEnough(int handedMoney, int ticketPrice) {
+    private void assertHandMoneyEnough(int handedMoney, Price price) {
+        int ticketPrice = price.getValue();
         if (handedMoney < ticketPrice) {
             throw new TicketShortMoneyException("Short money: " + handedMoney);
         }
     }
 
-    private void calcSalesProceeds(int ticketPrice) {
+    private void calcSalesProceeds(Price price) {
+        int ticketPrice = price.getValue();
         if (salesProceeds != null) {
             salesProceeds = salesProceeds + ticketPrice;
         } else {

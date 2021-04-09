@@ -26,9 +26,8 @@ public class MultiDayTicket implements Ticket {
 
     // ===================================================================================
     //                                                                           Attribute
-    //                                                                           =========
     private final Price displayPrice;
-    private final TicketDaysType type;
+    private final TicketDaysType daysType;
     private int remainingDays = 0;
 
     // ===================================================================================
@@ -36,7 +35,7 @@ public class MultiDayTicket implements Ticket {
     //                                                                         ===========
     public MultiDayTicket(Price ticketPrice, TicketDaysType tikectType) {
         this.displayPrice = ticketPrice;
-        this.type = tikectType;
+        this.daysType = tikectType;
         this.remainingDays = tikectType.getDays();
     }
 
@@ -59,8 +58,8 @@ public class MultiDayTicket implements Ticket {
         return displayPrice.getValue();
     }
 
-    public TicketDaysType getType() {
-        return this.type;
+    public TicketDaysType getDaysType() {
+        return this.daysType;
     }
 
     public int getRemainingDays() {

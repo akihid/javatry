@@ -21,37 +21,21 @@ package org.docksidestage.bizfw.basic.buyticket;
  */
 public class TicketTypeHolder {
 
-    public static final TicketTypeHolder ONE_DAY_TYPE =
-            new TicketTypeHolder(TicketTypeHolder.Price.ONE_DAY, TicketTypeHolder.TicketDaysType.ONE_DAY);
-    
-    public static final TicketTypeHolder TWO_DAY_TYPE =
-            new TicketTypeHolder(TicketTypeHolder.Price.TWO_DAY, TicketTypeHolder.TicketDaysType.TWO_DAY);
+    public static final TicketTypeHolder ONE_DAY_TYPE = new TicketTypeHolder(Price.ONE_DAY, TicketDaysType.ONE_DAY);
+    public static final TicketTypeHolder TWO_DAY_TYPE = new TicketTypeHolder(Price.TWO_DAY, TicketDaysType.TWO_DAY);
+    public static final TicketTypeHolder FOUR_DAY_TYPE = new TicketTypeHolder(Price.TWO_DAY, TicketDaysType.FOUR_DAY);
 
+    private static final int ONE_DAY_PRICE = 7400; // when 2019/06/15
+    private static final int TWO_DAY_PRICE = 13200;
+    private static final int FOUR_DAY_PRICE = 22400;
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
     private final Price price;
-    private final TicketDaysType type;
-
-    private static final int ONE_DAY_PRICE = 7400; // when 2019/06/15
-    private static final int TWO_DAY_PRICE = 13200;
-
-    public enum TicketDaysType {
-        ONE_DAY(1), TWO_DAY(2);
-
-        private int days;
-
-        private TicketDaysType(int days) {
-            this.days = days;
-        }
-
-        public int getDays() {
-            return days;
-        }
-    }
+    private final TicketDaysType daysType;
 
     public enum Price {
-        ONE_DAY(ONE_DAY_PRICE), TWO_DAY(TWO_DAY_PRICE);
+        ONE_DAY(ONE_DAY_PRICE), TWO_DAY(TWO_DAY_PRICE), FOUR_DAY(FOUR_DAY_PRICE);
 
         private int value;
 
@@ -65,12 +49,26 @@ public class TicketTypeHolder {
 
     }
 
+    public enum TicketDaysType {
+        ONE_DAY(1), TWO_DAY(2), FOUR_DAY(4);
+
+        private int daysType;
+
+        private TicketDaysType(int daysType) {
+            this.daysType = daysType;
+        }
+
+        public int getDays() {
+            return daysType;
+        }
+    }
+
     // ===================================================================================
     //                                                                         Constructor
     //                                                                         ===========
-    public TicketTypeHolder(Price price, TicketDaysType oneDay) {
+    public TicketTypeHolder(Price price, TicketDaysType daysType) {
         this.price = price;
-        this.type = oneDay;
+        this.daysType = daysType;
     }
 
     // ===================================================================================
@@ -85,8 +83,8 @@ public class TicketTypeHolder {
     }
 
     //
-    public TicketDaysType getType() {
-        return this.type;
+    public TicketDaysType getDaysType() {
+        return this.daysType;
     }
 
 }
