@@ -15,8 +15,9 @@
  */
 package org.docksidestage.javatry.basic;
 
-import org.docksidestage.bizfw.basic.buyticket.Ticket;
+import org.docksidestage.bizfw.basic.buyticket.OneDayTicket;
 import org.docksidestage.bizfw.basic.buyticket.TicketBooth;
+import org.docksidestage.bizfw.basic.buyticket.TicketBuyResult;
 import org.docksidestage.bizfw.basic.objanimal.Animal;
 import org.docksidestage.bizfw.basic.objanimal.BarkedSound;
 import org.docksidestage.bizfw.basic.objanimal.Cat;
@@ -65,12 +66,14 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
             throw new IllegalStateException("Short money: handedMoney=" + handedMoney);
         }
         --quantity;
-        salesProceeds = handedMoney;
+        //salesProceeds = handedMoney; Fix: 売上金はoneDayPrice
+        salesProceeds = oneDayPrice;
 
         //
         // [ticket info]
         //
-        int displayPrice = quantity;
+        //        int displayPrice = quantity; Fix: 表示価格ははoneDayPrice?
+        int displayPrice = oneDayPrice;
         boolean alreadyIn = false;
 
         // other processes here...
@@ -88,14 +91,17 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         //
         // [final process]
         //
-        saveBuyingHistory(quantity, displayPrice, salesProceeds, alreadyIn);
+        //        saveBuyingHistory(quantity, displayPrice, salesProceeds, alreadyIn); Fix: 引数誤り
+        saveBuyingHistory(quantity, salesProceeds, displayPrice, alreadyIn);
     }
 
     private void saveBuyingHistory(int quantity, Integer salesProceeds, int displayPrice, boolean alreadyIn) {
         if (alreadyIn) {
             // only logging here (normally e.g. DB insert)
-            showTicketBooth(displayPrice, salesProceeds);
-            showYourTicket(quantity, alreadyIn);
+            //            showTicketBooth(displayPrice, salesProceeds); Fix:引数誤り
+            showTicketBooth(quantity, salesProceeds);
+            //            showYourTicket(quantity, alreadyIn); Fix:引数誤り
+            showYourTicket(displayPrice, alreadyIn);
         }
     }
 
@@ -125,13 +131,21 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         //int quantity = 10;
         //Integer salesProceeds = null;
 
+        /**
+         * オブジェクトとは何か？
+         * チケットがチケットとして成り立っていなかった（ただの変数の集まり（金額やら在庫数やら）)
+         * ただの変数だったものがチケットの属性になった。
+         * チケットと紐付いていなかった入場するという動作もチケットの動作として成り立つようになっった
+         * オブジェクトは属性と動作を持つ物体そのもの
+         */
         //
         // [buy one-day passport]
         //
         // if step05 has been finished, you can use this code by jflute (2019/06/15)
-        //Ticket ticket = booth.buyOneDayPassport(10000);
-        booth.buyOneDayPassport(10000); // as temporary, remove if you finished step05
-        //        Ticket ticket = new Ticket(7400); // also here
+        TicketBuyResult oneDayPassportResult = booth.buyOneDayPassport(10000);
+        OneDayTicket ticket = (OneDayTicket) oneDayPassportResult.getTicket();
+        //        booth.buyOneDayPassport(10000); // as temporary, remove if you finished step05
+        //                Ticket ticket = new Ticket(7400); // also here
 
         // *buyOneDayPassport() has this process:
         //if (quantity <= 0) {
@@ -154,7 +168,7 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         //
         // [do in park now!!!]
         //
-        //        ticket.doInPark();
+        ticket.doInPark();
 
         // *doInPark() has this process:
         //if (alreadyIn) {
@@ -168,21 +182,21 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         //        saveBuyingHistory(booth, ticket);
     }
 
-    private void saveBuyingHistory(TicketBooth booth, Ticket ticket) {
-        //        if (ticket.isAlreadyIn()) {
-        //            // only logging here (normally e.g. DB insert)
-        //            doShowTicketBooth(booth);
-        //            doShowYourTicket(ticket);
-        //        }
-    }
-
-    private void doShowTicketBooth(TicketBooth booth) {
-        log("Ticket Booth: quantity={}, salesProceeds={}", booth.getQuantity(), booth.getSalesProceeds());
-    }
-
-    private void doShowYourTicket(Ticket ticket) {
-        //        log("Your Ticket: displayPrice={}, alreadyIn={}", ticket.getDisplayPrice(), ticket.isAlreadyIn());
-    }
+    //    private void saveBuyingHistory(TicketBooth booth, Ticket ticket) {
+    //        //        if (ticket.isAlreadyIn()) {
+    //        //            // only logging here (normally e.g. DB insert)
+    //        //            doShowTicketBooth(booth);
+    //        //            doShowYourTicket(ticket);
+    //        //        }
+    //    }
+    //
+    //    private void doShowTicketBooth(TicketBooth booth) {
+    //        log("Ticket Booth: quantity={}, salesProceeds={}", booth.getQuantity(), booth.getSalesProceeds());
+    //    }
+    //
+    //    private void doShowYourTicket(Ticket ticket) {
+    //        //        log("Your Ticket: displayPrice={}, alreadyIn={}", ticket.getDisplayPrice(), ticket.isAlreadyIn());
+    //    }
 
     // ===================================================================================
     //                                                              Polymorphism Beginning
@@ -195,9 +209,9 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         Dog dog = new Dog();
         BarkedSound sound = dog.bark();
         String sea = sound.getBarkWord();
-        log(sea); // your answer? => 
+        log(sea); // your answer? => wan
         int land = dog.getHitPoint();
-        log(land); // your answer? => 
+        log(land); // your answer? => 10-3=7(breatheIn,prepareAbdominalMuscle,doBark)
     }
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
