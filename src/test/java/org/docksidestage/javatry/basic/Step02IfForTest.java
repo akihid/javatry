@@ -185,7 +185,7 @@ public class Step02IfForTest extends PlainTestCase {
      */
     public void test_iffor_refactor_foreach_to_forEach() {
         List<String> stageList = prepareStageList();
-        String sea = null;
+        //        String sea = null;
         //        for (String stage : stageList) {
         //            if (stage.startsWith("br")) {
         //                continue;
