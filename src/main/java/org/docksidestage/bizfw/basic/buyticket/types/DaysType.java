@@ -22,7 +22,7 @@ package org.docksidestage.bizfw.basic.buyticket.types;
 public enum DaysType {
     ONE_DAY(1), TWO_DAY(2), FOUR_DAY(4);
 
-    private int days;
+    private final int days;
 
     private DaysType(int days) {
         this.days = days;

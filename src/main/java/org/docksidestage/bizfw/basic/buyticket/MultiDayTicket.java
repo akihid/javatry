@@ -26,6 +26,7 @@ public class MultiDayTicket implements Ticket {
 
     // ===================================================================================
     //                                                                           Attribute
+    //                                                                           =========
     private final Price displayPrice;
     private final DaysType daysType;
     private int remainingDays = 0;

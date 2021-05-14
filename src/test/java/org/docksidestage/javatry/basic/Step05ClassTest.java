@@ -74,6 +74,12 @@ public class Step05ClassTest extends PlainTestCase {
       宣言する際にスコープは短いように直前でやるべき
       
       チケットタイプホルダー自身をenumにして、それぞれも分けたほうがよい
+      
+      インターフェースでcommant + t 押せば、使用先がわかる
+      抽象的なクラスとしてdoInParkできるかどうかがわからない（Ticket)
+      使用可能か判断できるものをもたせてもいいのでは
+      型パラメータを使用すると固くなる（クラスに対して型を渡す）具象クラスを使うように
+      TicketBuyResult<MultiDayTicket>　List<String>
     
     */
     // ===================================================================================
@@ -296,7 +302,21 @@ public class Step05ClassTest extends PlainTestCase {
         log(fourDayPassport.getDaysType().equals(TicketType.FOUR_DAY.getDaysType()));
         log(booth.getSalesProceeds());
 
-        fourDayPassport.doInPark();
+        //        fourDayPassport.doInPark();
+    }
+
+    /**
+     * Fix it to be able to buy night-only two-day passport (price is 7400). <br>
+     * (NightOnlyTwoDayPassport (金額は7400) のチケットも買えるようにしましょう)
+     */
+    public void test_class_moreFix_wonder_night() {
+        // your confirmation code here
+        TicketBooth booth = new TicketBooth();
+        TicketBuyResult nightOnlyTwoDayPassportResult = booth.buyNightOnlyTwoDayPassport(30000);
+        MultiDayTicket nightOnlyTwoDayPassport = (MultiDayTicket) nightOnlyTwoDayPassportResult.getTicket();
+
+        log(nightOnlyTwoDayPassport.getDaysType().equals(TicketType.NIGHT_ONLY_TWO_DAY.getDaysType()));
+        log(booth.getSalesProceeds());
     }
 
     /**

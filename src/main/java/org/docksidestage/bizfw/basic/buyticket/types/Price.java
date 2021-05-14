@@ -20,9 +20,9 @@ package org.docksidestage.bizfw.basic.buyticket.types;
  * @author sato_akihide
  */
 public enum Price {
-    ONE_DAY(7400), TWO_DAY(13200), FOUR_DAY(22400);
+    ONE_DAY(7400), TWO_DAY(13200), FOUR_DAY(22400), NIGHT_ONLY_TWO_DAY(7400);
 
-    private int value;
+    private final int value;
 
     private Price(int value) {
         this.value = value;

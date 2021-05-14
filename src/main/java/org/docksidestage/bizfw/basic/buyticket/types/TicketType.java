@@ -23,7 +23,8 @@ public enum TicketType {
 
     ONE_DAY(Price.ONE_DAY, DaysType.ONE_DAY), //
     TWO_DAY(Price.TWO_DAY, DaysType.TWO_DAY), //
-    FOUR_DAY(Price.FOUR_DAY, DaysType.FOUR_DAY);
+    FOUR_DAY(Price.FOUR_DAY, DaysType.FOUR_DAY), //
+    NIGHT_ONLY_TWO_DAY(Price.NIGHT_ONLY_TWO_DAY, DaysType.TWO_DAY);
 
     private final Price price;
     private final DaysType daysType;
@@ -40,4 +41,5 @@ public enum TicketType {
     public DaysType getDaysType() {
         return daysType;
     }
+
 }

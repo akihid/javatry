@@ -58,6 +58,10 @@ public class TicketBooth {
         return doBuyPassport(handedMoney, TicketType.FOUR_DAY);
     }
 
+    public TicketBuyResult buyNightOnlyTwoDayPassport(int handedMoney) {
+        return doBuyPassport(handedMoney, TicketType.NIGHT_ONLY_TWO_DAY);
+    }
+
     private TicketBuyResult doBuyPassport(int handedMoney, TicketType ticketType) {
 
         Price price = ticketType.getPrice();

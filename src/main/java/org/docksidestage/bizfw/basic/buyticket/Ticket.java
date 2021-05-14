@@ -1,5 +1,7 @@
 package org.docksidestage.bizfw.basic.buyticket;
 
+import org.docksidestage.bizfw.basic.buyticket.types.DaysType;
+
 /**
  * @author jflute
  * @author sato_akihide
@@ -8,11 +10,9 @@ public interface Ticket {
     // ===================================================================================
     //                                                                           Attribute
     //                                                                           =========
-    //    final Price displayPrice;
-    //    final TicketDaysType type;
-    //    boolean alreadyIn;
-
     void doInPark();
 
     int getDisplayPrice();
+
+    DaysType getDaysType();
 }
