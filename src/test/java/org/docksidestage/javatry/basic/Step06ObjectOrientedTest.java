@@ -33,7 +33,7 @@ import org.docksidestage.unit.PlainTestCase;
  * Operate exercise as javadoc. If it's question style, write your answer before test execution. <br>
  * (javadocの通りにエクササイズを実施。質問形式の場合はテストを実行する前に考えて答えを書いてみましょう)
  * @author jflute
- * @author your_name_here
+ * @author akihide_sato
  */
 public class Step06ObjectOrientedTest extends PlainTestCase {
 
@@ -84,7 +84,8 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         // [do in park now!!!]
         //
         if (alreadyIn) {
-            throw new IllegalStateException("Already in park by this ticket: displayPrice=" + quantity);
+            // throw new IllegalStateException("Already in park by this ticket: displayPrice=" + quantity);
+            throw new IllegalStateException("Already in park by this ticket: displayPrice=" + displayPrice);
         }
         alreadyIn = true;
 
@@ -95,6 +96,11 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         saveBuyingHistory(quantity, salesProceeds, displayPrice, alreadyIn);
     }
 
+    /**
+     * この引数の指定方法は怖い。コンパイルエラーも発生しないので…。
+     * 同しようもない場合は、指差し確認必須。
+     * ctrl + space　で補完できる（できない場合は自身の処理でthis.で出てくる　）なんか干渉してうまくできない。おま環。
+     */
     private void saveBuyingHistory(int quantity, Integer salesProceeds, int displayPrice, boolean alreadyIn) {
         if (alreadyIn) {
             // only logging here (normally e.g. DB insert)
@@ -309,6 +315,9 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
      */
     public void test_objectOriented_polymorphism_interface_runnerImpl() {
         // your confirmation code here
+        Animal dog = new Dog();
+        boolean sea = dog instanceof FastRunner;
+        log(sea);
     }
 
     // ===================================================================================

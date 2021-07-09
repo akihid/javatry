@@ -15,11 +15,21 @@
  */
 package org.docksidestage.bizfw.basic.objanimal;
 
+import org.docksidestage.bizfw.basic.objanimal.runner.FastRunner;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * The object for dog(犬).
  * @author jflute
+ * @author sato_akihide
  */
-public class Dog extends Animal {
+public class Dog extends Animal implements FastRunner {
+
+    // ===================================================================================
+    //                                                                          Definition
+    //                                                                          ==========
+    private static final Logger logger = LoggerFactory.getLogger(Dog.class);
 
     // ===================================================================================
     //                                                                         Constructor
@@ -30,7 +40,28 @@ public class Dog extends Animal {
     // ===================================================================================
     //                                                                               Bark
     //                                                                              ======
+    @Override
     protected String getBarkWord() {
-        return "wan"; // bow? in English
+        return "wan"; // wan? in English
+    }
+
+    // ===================================================================================
+    //                                                                              Runner
+    //                                                                              ======
+    @Override
+    public void run() {
+        // dummy implementation
+        logger.debug("...Running now");
+    }
+
+    // ===================================================================================
+    //                                                                           Hit Point
+    //                                                                           =========
+    @Override
+    protected void downHitPoint() {
+        super.downHitPoint();
+        if (hitPoint % 2 == 0) {
+            super.downHitPoint();
+        }
     }
 }
