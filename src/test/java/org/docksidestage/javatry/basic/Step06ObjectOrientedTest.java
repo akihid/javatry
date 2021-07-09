@@ -66,13 +66,13 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
             throw new IllegalStateException("Short money: handedMoney=" + handedMoney);
         }
         --quantity;
-        //salesProceeds = handedMoney; Fix: 売上金はoneDayPrice
+        //salesProceeds = handedMoney; Fix: 1.売上金はoneDayPrice
         salesProceeds = oneDayPrice;
 
         //
         // [ticket info]
         //
-        //        int displayPrice = quantity; Fix: 表示価格ははoneDayPrice?
+        //        int displayPrice = quantity; Fix: 2.表示価格ははoneDayPrice?
         int displayPrice = oneDayPrice;
         boolean alreadyIn = false;
 
@@ -91,16 +91,16 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         //
         // [final process]
         //
-        //        saveBuyingHistory(quantity, displayPrice, salesProceeds, alreadyIn); Fix: 引数誤り
+        //        saveBuyingHistory(quantity, displayPrice, salesProceeds, alreadyIn); Fix: 3.引数誤り
         saveBuyingHistory(quantity, salesProceeds, displayPrice, alreadyIn);
     }
 
     private void saveBuyingHistory(int quantity, Integer salesProceeds, int displayPrice, boolean alreadyIn) {
         if (alreadyIn) {
             // only logging here (normally e.g. DB insert)
-            //            showTicketBooth(displayPrice, salesProceeds); Fix:引数誤り
+            //            showTicketBooth(displayPrice, salesProceeds); Fix:4.引数誤り
             showTicketBooth(quantity, salesProceeds);
-            //            showYourTicket(quantity, alreadyIn); Fix:引数誤り
+            //            showYourTicket(quantity, alreadyIn); Fix:5.引数誤り
             showYourTicket(displayPrice, alreadyIn);
         }
     }
@@ -219,9 +219,9 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         Animal animal = new Dog();
         BarkedSound sound = animal.bark();
         String sea = sound.getBarkWord();
-        log(sea); // your answer? => 
+        log(sea); // your answer? => wan
         int land = animal.getHitPoint();
-        log(land); // your answer? => 
+        log(land); // your answer? => 10-3=7(breatheIn,prepareAbdominalMuscle,doBark)
     }
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
@@ -229,9 +229,9 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         Animal animal = createAnyAnimal();
         BarkedSound sound = animal.bark();
         String sea = sound.getBarkWord();
-        log(sea); // your answer? => 
+        log(sea); // your answer? => wan
         int land = animal.getHitPoint();
-        log(land); // your answer? => 
+        log(land); // your answer? => 10-3=7(breatheIn,prepareAbdominalMuscle,doBark)
     }
 
     private Animal createAnyAnimal() {
@@ -247,9 +247,9 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
     private void doAnimalSeaLand_for_4th(Animal animal) {
         BarkedSound sound = animal.bark();
         String sea = sound.getBarkWord();
-        log(sea); // your answer? => 
+        log(sea); // your answer? => wan
         int land = animal.getHitPoint();
-        log(land); // your answer? => 
+        log(land); // your answer? => 10-3=7(breatheIn,prepareAbdominalMuscle,doBark)
     }
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
@@ -257,9 +257,9 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         Animal animal = new Cat();
         BarkedSound sound = animal.bark();
         String sea = sound.getBarkWord();
-        log(sea); // your answer? => 
+        log(sea); // your answer? => nya-
         int land = animal.getHitPoint();
-        log(land); // your answer? => 
+        log(land); // your answer? => 5  10-1(9)breatheIn→9-1-1=7prepareAbdominalMuscle→7-1-1(HP下がったあとに2で割った余りが0の場合、もう１引く）
     }
 
     /** Same as the previous method question. (前のメソッドの質問と同じ) */
@@ -267,9 +267,9 @@ public class Step06ObjectOrientedTest extends PlainTestCase {
         Animal animal = new Zombie();
         BarkedSound sound = animal.bark();
         String sea = sound.getBarkWord();
-        log(sea); // your answer? => 
+        log(sea); // your answer? => uooo
         int land = animal.getHitPoint();
-        log(land); // your answer? => 
+        log(land); // your answer? => -1 hitPoint = getInitialHitPoint(); Zombieクラスは-1で上書きされている
     }
 
     // ===================================================================================
